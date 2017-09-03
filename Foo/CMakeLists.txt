@@ -16,16 +16,27 @@
 # VERSION sub-option we need 3.0.
 cmake_minimum_required(VERSION 3.0)
 
+include("cmake/HunterGate.cmake")
+HunterGate(
+  URL "https://github.com/ruslo/hunter/archive/v0.19.85.tar.gz"
+  SHA1 "6b0a65f5bb49f09cce73d07d91af0a3e54f07835"
+  )
+
 ####
 # Set variables:
 #   * PROJECT_NAME
 #   * PROJECT_VERSION
 project(Foo VERSION 1.2.3)
 
+hunter_add_package(spdlog)
+find_package(spdlog CONFIG REQUIRED)
+
 ####
 # Create targets
 add_library(bar "Source/foo/Bar.cpp" "Source/foo/Bar.hpp")
 add_library(baz "Source/foo/Baz.cpp" "Source/foo/Baz.hpp")
+
+target_link_libraries(baz spdlog::spdlog)
 
 ####
 # Properties of targets

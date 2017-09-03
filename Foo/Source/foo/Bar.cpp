@@ -1,5 +1,6 @@
 #include <foo/Bar.hpp>
 
+
 namespace foo {
 
 void Bar::cpp_say() {
@@ -9,6 +10,9 @@ void Bar::cpp_say() {
   const char* m = "Bar.cpp (Not debug)";
 #endif
   std::cout << m << std::endl;
+
+  auto logger = Logger::create("spdlog_test");
+  logger->info("Hi from Logger");
 }
 
 } // namespace foo

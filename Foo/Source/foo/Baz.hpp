@@ -4,7 +4,25 @@
 #include <iostream> // std::cout
 #include <baz_export.h> // BAZ_EXPORT
 
+#include <spdlog/spdlog.h>
+#include <mutex>
+
 namespace foo {
+
+class Logger
+{
+public:
+    using Pointer = std::shared_ptr<spdlog::logger>;
+    static Pointer create(const char* name);
+    static Pointer get(const char* name);
+    static void drop(const char* name);
+    static int count();
+    static int increment();
+
+protected:
+    static std::mutex m_mutex;
+    static int m_count;
+};
 
 class BAZ_EXPORT Baz {
  public:

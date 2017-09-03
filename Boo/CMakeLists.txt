@@ -1,15 +1,14 @@
 cmake_minimum_required(VERSION 3.0)
+
+include("cmake/HunterGate.cmake")
+HunterGate(
+  URL "https://github.com/ruslo/hunter/archive/v0.19.85.tar.gz"
+  SHA1 "6b0a65f5bb49f09cce73d07d91af0a3e54f07835"
+  )
+
 project(Boo)
 
-if(TARGET bar)
-  add_library(Foo::bar ALIAS bar)
-else()
-  # Add NO_CMAKE_BUILDS_PATH for windows if using CMake-GUI to build packages
-  # to avoid searching in temporary build directory of Foo project
-  # See 5:
-  #    * http://www.cmake.org/cmake/help/v3.0/command/find_package.html
-  find_package(Foo CONFIG REQUIRED)
-endif()
+find_package(Foo CONFIG REQUIRED)
 
 add_executable(boo boo.cpp)
 
